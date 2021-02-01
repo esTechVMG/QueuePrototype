@@ -4,7 +4,7 @@ namespace Queue\SQLManager;
 use Exception;
 
 use Queue\QueueServer\User;
-//This is a stub implementation made with arrays. Does nothing usefull ATM as it does not store
+//This is a stub implementation made with arrays. Does nothing usefull ATM as it does not store permanently data. Can be used for testing purposes.
 class SQLManagerArrayImpl implements SQLManager{
     private $unverifiedQueue;//Array of Unverified QueueClients. This clients are added here before the apps sends the verification in the queue. 
     private $verifiedQueue;// Clients verified in the app
