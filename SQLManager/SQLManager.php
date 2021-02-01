@@ -6,8 +6,9 @@ use Queue\QueueServer\User;
 interface SQLManager{
     //IMPORTANT NOTES
     // - ALL INDEXES START AT 0
-    // - Commented functions are not needed right now. 
-    //This class does not provides any logic, only a wrapper for accessing SQL data in a structured way.
+    // - Not all functions might be needed and other functions might be added in the future.
+    // - This class does not provides any logic, only a wrapper for accessing SQL data in a structured way.
+    // - The design assumes that tables have both index and identifier in every row. The identifier is for the anomymous authentication and the index is for queue logic.
     //SELECT id FROM unverified_users;
     function getUnVerifiedUsersIdentifiers() : array; 
     //SELECT id FROM verified_users;
