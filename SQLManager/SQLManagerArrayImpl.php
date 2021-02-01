@@ -2,8 +2,6 @@
 namespace Queue\SQLManager;
 
 use Exception;
-use PDO;
-use PDOException;
 
 use Queue\QueueServer\User;
 //This is a stub implementation made with arrays. Does nothing usefull ATM as it does not store
