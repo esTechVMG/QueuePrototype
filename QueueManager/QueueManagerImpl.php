@@ -1,7 +1,7 @@
 <?php
 namespace Queue\QueueServer;
 
-use Queue\SQLManager\SQLManagerImpl;
+use Queue\SQLManager\SQLManagerArrayImpl;
 use Queue\ClientTypes;
 
 class QueueServerImpl implements QueueServer{
@@ -12,7 +12,7 @@ class QueueServerImpl implements QueueServer{
     private $estimatedTimePerClient; //Average time per client
     private $sqlManager; //SQL Object which comunicates with the MySQL database
     public function __construct(){
-        self::$sqlManager = new SQLManagerImpl();
+        self::$sqlManager = new SQLManagerArrayImpl();
         //This example uses minutes but this can be adjusted to use other measures changing code only in client-side
         //These parameters should be read from a settings file or SQL table in a future
         self::$estimatedTimePerClient = 5;

@@ -7,30 +7,13 @@ use PDOException;
 
 use Queue\QueueServer\User;
 //This is a stub implementation made with arrays. Does nothing usefull ATM as it does not store
-class SQLManagerImpl implements SQLManager{
-    public static $offlineTestMode=false;//Disables SQL Connection to database. Usefull in unit testing. Disable on production
+class SQLManagerArrayImpl implements SQLManager{
     private $unverifiedQueue;//Array of Unverified QueueClients. This clients are added here before the apps sends the verification in the queue. 
     private $verifiedQueue;// Clients verified in the app
     function __construct()
     {
-        if (self::$offlineTestMode){
-            self::$unverifiedQueue=[];
-            self::$verifiedQueue = [];
-        } else {
-            //SQL Initialization code
-            /*
-            $dsn = 'mysql:dbname=testdb;host=127.0.0.1';
-            $usuario = 'root';
-            $contraseña = 'root';
-            
-            try {
-                $gbd = new PDO($dsn, $usuario, $contraseña);
-            } catch (PDOException $e) {
-                
-                echo 'Falló la conexión: ' . $e->getMessage();
-            }
-            */
-        }
+        self::$unverifiedQueue=[];
+        self::$verifiedQueue = [];
     }
     //SELECT * FROM unverified_users WHERE index="?" 
     public function getUnVerifiedUsersIdentifiers(): array{
