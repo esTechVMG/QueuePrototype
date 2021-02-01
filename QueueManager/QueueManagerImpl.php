@@ -27,9 +27,15 @@ class QueueServerImpl implements QueueServer{
         switch($user->type){//Check Client type
             case ClientTypes::CLIENT_APP_USER_UNVERIFIED:
                 $user->type = ClientTypes::CLIENT_APP_USER_VERIFIED;
-                if(self::verifyUnverifiedQueuedUser($user,self::$sqlManager->getUnverifiedUsers())){
+                if(self::verifyUnverifiedQueuedUser($user,self::$sqlManager->getUnVerifiedUsersIdentifiers())){
                     
-                    self::$sqlManager->moveUserToVerifiedQueue($user->identifier);
+                    try {
+                        self::$sqlManager->removeUserFromVerifiedQueueByIdentifier($user->identifier);
+                        self::$sqlManager->addUserToVerifiedQueue($user);
+                    } catch (\Exception $e) {
+                        
+                    }
+
 
                     return true;
                 }
@@ -47,12 +53,10 @@ class QueueServerImpl implements QueueServer{
     }
     
     
-    private static function verifyUnverifiedQueuedUser(User $user,array $queue){
-        foreach ($queue as &$queueUser) {
-            if($queueUser instanceof User){
-                if($queueUser->identifier == $user->identifier){//Checks the identifier
-                    return true;
-                }
+    private static function verifyUnVerifiedQueuedUser(User $user,array $identifiers){
+        foreach ($identifiers as &$identifier) {
+            if($identifier == $user->identifier){//Checks the identifier
+                return true;
             }
         }
         return false;
